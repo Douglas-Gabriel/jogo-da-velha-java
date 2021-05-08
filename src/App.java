@@ -6,7 +6,31 @@ public class App {
     private static int linha, coluna, win;
     private static Scanner leitor = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
-        jogo();
+        int i = 0;
+        //Percorre todo o tabuleiro, nas nove posições
+        for(i = 0; i < 9; i++){
+            jogo(); //Chama a rotina "jogo()", que desenha o tabuleiro
+            if(i % 2 == 0){
+                jogar(2);
+            } else {
+                jogar(1);
+            }
+            check(); //Chama a rotina "check()", para ver se alguém ganhou
+            if(win == 1 || win == 2){
+                //Sai do laço antes de completar o tabuleiro, se alguém tiver vencido
+                i = 10;
+            }
+        }
+        jogo(); //Chama a rotina "jogo()", para redesenhar o tabuleiro
+        //Verificar se houve vencedor
+        System.out.println();
+        if(win == 1 || win == 2){
+            //Informa o vencedor
+            System.out.println("Jogador " + win + " é o ganhador!");
+        } else {
+            //Não houve vencedor
+            System.out.println("Não houve vencedor! O jogo foi empate!");
+        }
     }
 
     public static void desenha(int x, int y){
