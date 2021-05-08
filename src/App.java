@@ -1,6 +1,14 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 public class App {
+    private static File arquivo = new File("ranking.obj");
     private static int jog;
     private static int[][] casa = new int [3][3];
     public static Jogador[] jogadores = new Jogador[50];
@@ -10,6 +18,7 @@ public class App {
     private static long inicio;
     private static Scanner leitor = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
+        lerJogadores();
         cadastro();
         setTempo(); //Começa a contar o tempo da partida
         int i = 0;
@@ -42,6 +51,7 @@ public class App {
         }
         System.out.println("O tempo da partida foi: " + getTempo() + "s");
         imprimirJogadores();
+        salvarJogadores();
     }
 
     public static void desenha(int x, int y){
@@ -218,6 +228,28 @@ public class App {
             System.out.println("Nome: " + jogadores[i].nome);
             System.out.println(" | vitórias:" + jogadores[i].vitorias);
             System.out.println(" | derrotas:" + jogadores[i].derrotas);
+        }
+    }
+
+    public static void salvarJogadores(){
+        try{
+            ObjectOutputStream saida = new ObjectOutputStream(new FileOutputStream(arquivo));
+            saida.writeObject(jogadores);
+        } catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void lerJogadores(){
+        try{
+            ObjectInputStream saida = new ObjectInputStream(new FileInputStream(arquivo));
+            jogadores = (Jogador[]) saida.readObject();
+            while(jogadores[qtsJogadores] != null && qtsJogadores < 50);
+            qtsJogadores = qtsJogadores + 1;
+        } catch (FileNotFoundException e){
+            //Não faz nada
+        } catch (Exception e){
+            throw new RuntimeException(e);
         }
     }
 }
