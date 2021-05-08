@@ -110,4 +110,32 @@ public class App {
             }
         }
     }
+
+    public static void check(){
+        int i = 0;
+        //verificando se houve vencedor na horizontal
+        for(i = 0; i < 3; i++){
+            if(casa[i][0] == casa[i][1] && casa[i][0] == casa[i][2]){
+                if(casa[i][0] == 1) win = 1;
+                if(casa[i][0] == 2) win = 2;
+            }
+        }
+        //Verificando se houve vencedor na vertical
+        for(i = 0; i < 3; i++){
+            if(casa[0][i] == casa[1][i] && casa[0][i] == casa[2][i]){
+                if(casa[0][i] == 1) win = 1;
+                if(casa[0][i] == 2) win = 2;
+            }
+        }
+        //Verificando se houve vencedor na diagonal de cima para baixo
+        if(casa[0][0] == casa[1][1] && casa[0][0] == casa[2][2]){
+            if(casa[0][0] == 1) win = 1;
+            if(casa[0][0] == 2) win = 2;
+        }
+        //Verificando se houve vencedor na diagonal de baixo para cima
+        if(casa[0][2] == casa[1][1] && casa[0][2] == casa[2][0]){
+            if(casa[0][2] == 1) win = 1;
+            if(casa[0][2] == 2) win = 2;
+        }
+    }
 }
