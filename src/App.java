@@ -5,9 +5,11 @@ public class App {
     private static int[][] casa = new int [3][3];
     private static int linha, coluna, win;
     private static String jogador1, jogador2;
+    private static long inicio;
     private static Scanner leitor = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
         cadastro();
+        setTempo(); //Começa a contar o tempo da partida
         int i = 0;
         //Percorre todo o tabuleiro, nas nove posições
         for(i = 0; i < 9; i++){
@@ -36,6 +38,7 @@ public class App {
             //Não houve vencedor
             System.out.println("Não houve vencedor! O jogo foi empate!");
         }
+        System.out.println("O tempo da partida foi: " + getTempo() + "s");
     }
 
     public static void desenha(int x, int y){
@@ -53,13 +56,13 @@ public class App {
 
     public static void jogo(){
         //Mostrar os números das colunas do tabuleiro
-        System.out.print("\n  1   2    3\n");
+        System.out.print("\n  1    2    3\n");
         //Mostrar os números da primeira linha
         System.out.print("1 ");
         //Exibir o campo que cruza a linha 1 com a coluna 1
         desenha(0, 0);
         //Divisão entre dois campos
-        System.out.print(" | ");
+        System.out.print("  | ");
         //Exibir o campo que cruza a linha 1 com a coluna 2
         desenha(0, 1);
         //Divisão entre dois campos
@@ -67,7 +70,7 @@ public class App {
         //Exibir o campo que cruza a linha 1 com a coluna 3
         desenha(0, 2);
         //Desenha linha horizontal e mostra número da linha 2
-        System.out.print("\n -------------\n2");
+        System.out.print("\n -------------\n2 ");
         //Exibir o campo que cruza a linha 2 com a coluna 1
         desenha(1, 0);
         //Divisão entre dois campos
@@ -79,7 +82,7 @@ public class App {
         //Exibir o campo que cruza a linha 2 com a coluna 2
         desenha(1, 2);
         //Desenha linha horizontal e mostra número da linha 3
-        System.out.print("\n -------------\n3");
+        System.out.print("\n -------------\n3 ");
         //Exibir o campo que cruza a linha 3 com a coluna 1
         desenha(2, 0);
         //Divisão entre dois campos
@@ -176,5 +179,13 @@ public class App {
         System.out.println("Digite o nome do jogador 2:");
         //Recebe o nome do jogador 1
         jogador2 = leitor.next();
+    }
+
+    public static void setTempo(){
+        inicio = System.currentTimeMillis();
+    }
+
+    public static long getTempo(){
+        return (System.currentTimeMillis() - inicio) / 1000;
     }
 }
