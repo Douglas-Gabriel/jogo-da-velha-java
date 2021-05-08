@@ -4,16 +4,18 @@ public class App {
     private static int jog;
     private static int[][] casa = new int [3][3];
     private static int linha, coluna, win;
+    private static String jogador1, jogador2;
     private static Scanner leitor = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
+        cadastro();
         int i = 0;
         //Percorre todo o tabuleiro, nas nove posições
         for(i = 0; i < 9; i++){
             jogo(); //Chama a rotina "jogo()", que desenha o tabuleiro
             if(i % 2 == 0){
-                jogar(2);
-            } else {
                 jogar(1);
+            } else {
+                jogar(2);
             }
             check(); //Chama a rotina "check()", para ver se alguém ganhou
             if(win == 1 || win == 2){
@@ -24,9 +26,12 @@ public class App {
         jogo(); //Chama a rotina "jogo()", para redesenhar o tabuleiro
         //Verificar se houve vencedor
         System.out.println();
-        if(win == 1 || win == 2){
+        if(win == 1){
             //Informa o vencedor
-            System.out.println("Jogador " + win + " é o ganhador!");
+            System.out.println("Jogador " + jogador1 + " é o ganhador!");
+        } else if(win == 2){
+            //Informa o vencedor
+            System.out.println("Jogador " + jogador2 + " é o ganhador!");
         } else {
             //Não houve vencedor
             System.out.println("Não houve vencedor! O jogo foi empate!");
@@ -39,7 +44,7 @@ public class App {
             System.out.print("X");
         } else if(casa[x][y] == 2){
             //Espaço marcado pelo jogador 2 aparece o "Y"
-            System.out.print("Y");
+            System.out.print("O");
         } else{
             //Espaço não marcado
             System.out.print(" ");
@@ -48,13 +53,13 @@ public class App {
 
     public static void jogo(){
         //Mostrar os números das colunas do tabuleiro
-        System.out.print("\n  1    2    3\n");
+        System.out.print("\n  1   2    3\n");
         //Mostrar os números da primeira linha
-        System.out.print("1");
+        System.out.print("1 ");
         //Exibir o campo que cruza a linha 1 com a coluna 1
         desenha(0, 0);
         //Divisão entre dois campos
-        System.out.print("  | ");
+        System.out.print(" | ");
         //Exibir o campo que cruza a linha 1 com a coluna 2
         desenha(0, 1);
         //Divisão entre dois campos
@@ -62,7 +67,7 @@ public class App {
         //Exibir o campo que cruza a linha 1 com a coluna 3
         desenha(0, 2);
         //Desenha linha horizontal e mostra número da linha 2
-        System.out.print("\n -----------\n2");
+        System.out.print("\n -------------\n2");
         //Exibir o campo que cruza a linha 2 com a coluna 1
         desenha(1, 0);
         //Divisão entre dois campos
@@ -74,7 +79,7 @@ public class App {
         //Exibir o campo que cruza a linha 2 com a coluna 2
         desenha(1, 2);
         //Desenha linha horizontal e mostra número da linha 3
-        System.out.print("\n -----------\n3");
+        System.out.print("\n -------------\n3");
         //Exibir o campo que cruza a linha 3 com a coluna 1
         desenha(2, 0);
         //Divisão entre dois campos
@@ -93,10 +98,11 @@ public class App {
         //Definindo o jogador da vez
         if(jogador == 1){
             jog = 1;
+            System.out.println("\nVez do jogador: " + jogador1);
         } else{
             jog = 2;
+            System.out.println("\nVez do jogador: " + jogador2);
         }
-        System.out.println("\nVez do jogador: " + jog);
         while(i == 0){
             linha = 0; //Inicializando valor da linha
             coluna = 0; //Inicializando valor da coluna
@@ -161,5 +167,14 @@ public class App {
             if(casa[0][2] == 1) win = 1;
             if(casa[0][2] == 2) win = 2;
         }
+    }
+
+    public static void cadastro(){
+        System.out.println("Digite o nome do jogador 1:");
+        //Recebe o nome do jogador 1
+        jogador1 = leitor.next();
+        System.out.println("Digite o nome do jogador 2:");
+        //Recebe o nome do jogador 1
+        jogador2 = leitor.next();
     }
 }
